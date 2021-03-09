@@ -28,6 +28,7 @@ To stop solr and database services: `rake pulfalight:server:stop` or `lando stop
 
 #### Run tests
 `bundle exec rspec`
+To watch feature tests run in a browser, make sure chrome is installed and run: `RUN_IN_BROWSER=true rspec spec`
 
 #### Start development server
 - `rails s`

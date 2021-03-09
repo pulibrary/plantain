@@ -4,11 +4,13 @@ require "capybara/rspec"
 require "selenium-webdriver"
 
 Capybara.register_driver(:selenium) do |app|
+  capability_args = %w[disable-gpu disable-setuid-sandbox]
+  capability_args << "headless" unless ENV['RUN_IN_BROWSER'] == 'true'
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w[headless disable-gpu disable-setuid-sandbox] }
+    chromeOptions: { args: capability_args }
   )
   browser_options = ::Selenium::WebDriver::Chrome::Options.new
-  browser_options.args << "--headless"
+  browser_options.args << "--headless" unless ENV['RUN_IN_BROWSER'] == 'true'
   browser_options.args << "--disable-gpu"
 
   http_client = Selenium::WebDriver::Remote::Http::Default.new
